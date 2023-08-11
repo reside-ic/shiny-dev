@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-set -e
+set -eu
 SERVER_NAME_BASE=${1:-shiny-server-config}
 SERVER_N=${2:-100}
 
 echo "Updating servers 1..${SERVER_N}"
 
 for i in $(seq $SERVER_N); do
-    SERVER_NAME="${SERVER_NAME_BASE}_shiny_${i}"
+    SERVER_NAME="${SERVER_NAME_BASE}-${i}"
     SERVER_CODE="shiny${i}"
     SERVER_IP=$(getent hosts $SERVER_NAME | cut -d ' ' -f1)
     if [[ -z $SERVER_IP ]]; then
