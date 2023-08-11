@@ -4,6 +4,8 @@ This is a temporary repo designed to give an easy-to-understand deployment of th
 
 ## The components
 
+Some of these are docker images, and they are not set to pull, so you will want to rebuild. All build very quickly.
+
 ### apache
 
 Running an unmodified httpd container (previously was 2.4, we'll update once we know this works). The configuration ([`apache/httpd.conf`](httpd/httpd.conf)) and certificates (`apache/ssl`) will be read-only mounted into the container. You need to fetch the ssl key and certificate, run `./apache/configure_ssl` to do this (only needs to be done if they change or if the `ssl` directory is deleted)
@@ -20,7 +22,7 @@ A lightly modified version of the official shiny container; the original version
 
 Some applications (copied over from the original deployment are in `apps`). These will want to be in a volume; run `./apps/create_volume` to copy them into the volume
 
-### summary
+### Summary
 
 ```
 ./apache/configure_ssl
@@ -32,7 +34,8 @@ Some applications (copied over from the original deployment are in `apps`). Thes
 ## Bringing the bits up
 
 ```
-docker network create twinkle
+docker network create twinkle 2> /dev/null || /bin/true
+docker volume create shiny_logs
 docker run -d --name haproxy --network twinkle mrcide/haproxy:dev
 docker run -d --name apache --network twinkle \
   -p 80:80 \
@@ -44,6 +47,8 @@ docker run -d --name apache --network twinkle \
   httpd:2.4
 docker run -d --name shiny-1 --network=twinkle \
   -v twinkle_apps:/shiny/apps \
+  -v twinkle_logs:/shiny/logs \
+  -p 3838:3838 \
   mrcide/shiny-server:dev
 docker exec haproxy update_shiny_servers shiny 1
 ```
@@ -52,4 +57,5 @@ Teardown
 
 ```
 docker rm -f haproxy apache shiny-1
+docker network rm twinkle
 ```
