@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# uses krysnc to sync files to a kubernetes pod and thus into k8s cluster (via persistant volume)
+# RUN this from repository root to ensure correct paths to app files
+NAMESPACE=twinkle
+SYNC_DIR=/shiny/apps
+
+
+FIRST_SHINY_POD=$(kubectl get pods -l app=shiny -n $NAMESPACE -o jsonpath='{.items[0].metadata.name}')
+echo "pod name:  $FIRST_SHINY_POD"
+$PWD/k8s/krsync -av --progress --stats $PWD/apps/* $FIRST_SHINY_POD@$NAMESPACE:$SYNC_DIR

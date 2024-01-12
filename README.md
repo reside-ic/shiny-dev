@@ -33,14 +33,14 @@ Some applications (copied over from the original deployment are in `apps`). Thes
 
 ## Bringing the bits up
 
-```
+```bash
 docker network create twinkle 2> /dev/null || /bin/true
 docker volume create shiny_logs
 docker run -d --name haproxy --network twinkle mrcide/haproxy:dev
 docker run -d --name apache --network twinkle \
   -p 80:80 \
   -p 443:443 \
-  -p 9000:9000 \
+  -p 9005:9005 \
   -v "${PWD}/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro" \
   -v "${PWD}/apache/auth:/usr/local/apache2/conf/auth:ro" \
   -v "${PWD}/apache/ssl:/usr/local/apache2/conf/ssl:ro" \
@@ -55,7 +55,31 @@ docker exec haproxy update_shiny_servers shiny 1
 
 Teardown
 
-```
+```bash
 docker rm -f haproxy apache shiny-1
 docker network rm twinkle
 ```
+
+## Running in Kubernetes
+
+The following is guide to run the shiny server in kubernetes. They are based on running a Kind cluster. The configuration may
+nee to be adjusted for other k8s clusters.
+
+### Prerequisites
+
+A single node k8s cluster is needed. To setup a k8s cluster follow the guide [here](https://mrc-ide.myjetbrains.com/youtrack/articles/RESIDE-A-31/Setting-up-Kubernetes-k8s-Cluster).
+
+Run the following commands  from the root of the repository
+
+1. `./shiny/build`
+2. For KIND cluster load image: `kind load docker-image mrcide/shiny-server:dev`
+3. Create /shiny/logs and /shiny/apps directories in k8s node. For kind exec into node via `docker exec -it kind-control-plane sh`
+ and then `mkdir -p /shiny/logs /shiny/apps` to create the directories.
+3.`k apply -k k8s/overlays/production` for production and `k apply -k k8s/overlays/staging` for staging.
+4.`k8s/shiny-sync`
+
+Great the shiny server is running and can be seen on the External IP of the ingress-nginx-controller LoadBalancer service.
+
+#### Teardown
+
+`k delete -k k8s/overlays/production` for production or `k delete -k k8s/overlays/staging` for staging

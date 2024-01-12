@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shiny-deploy
+  labels:
+    app: shiny
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: shiny
+  template:
+    metadata:
+      labels:
+        app: shiny
+    spec:
+      containers:
+      - name: shiny
+        image: mrcide/shiny-server:dev # todo: change to one in registery
+        volumeMounts: 
+        - name: shiny-apps
+          mountPath: /shiny/apps
+        - name: shiny-logs
+          mountPath: /shiny/logs
+        # todo: create appropriate resource requests and limits
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+      volumes:
+      - name: shiny-apps
+        persistentVolumeClaim:
+          claimName: shiny-apps-pvc
+      - name: shiny-logs
+        persistentVolumeClaim:
+          claimName: shiny-logs-pvc
+        
