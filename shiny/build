@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 HERE=$(realpath $(dirname $0))
-IMAGE_NAME="mrcide/shiny-server"
+IMAGE_NAME="absternator/shiny-server"
 TAG_VERSION=dev
 docker pull rocker/shiny:latest
 docker build --rm \

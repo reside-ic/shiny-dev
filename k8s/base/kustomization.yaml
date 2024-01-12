@@ -6,8 +6,7 @@ metadata:
 namespace: twinkle
 
 resources:
-- namespace.yaml
-- persistance.yaml
-- deployment.yaml
-- service.yaml
-- ingress.yaml
+  - persistance.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml

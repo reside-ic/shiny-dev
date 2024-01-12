@@ -9,13 +9,18 @@ metadata:
     nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - shiny-dev.dide.ic.ac.uk
+      secretName: tls-secret
   rules:
-  - http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: shiny-svc
-              port:
-                number: 3838
+    - host: shiny-dev.dide.ic.ac.uk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: shiny-svc
+                port:
+                  number: 3838
