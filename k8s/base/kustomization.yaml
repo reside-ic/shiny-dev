@@ -3,7 +3,7 @@ kind: Kustomization
 metadata:
   name: shiny
 
-namespace: twinkle
+namespace: twinkle # assume this namespace exists
 
 resources:
   - persistance.yaml

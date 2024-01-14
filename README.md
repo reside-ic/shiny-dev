@@ -73,7 +73,7 @@ Run the following commands  from the root of the repository
 
 1. `./shiny/build`
 2. For KIND cluster load image: `kind load docker-image mrcide/shiny-server:dev`
-3. Create /shiny/logs and /shiny/apps directories in k8s node. For kind exec into node via `docker exec -it kind-control-plane sh`
+3. Create /shiny/logs and /shiny/apps directories in k8s node or run `./k8s/configure_ssl`. For kind exec into node via `docker exec -it kind-control-plane sh`
  and then `mkdir -p /shiny/logs /shiny/apps` to create the directories.
 3.`k apply -k k8s/overlays/production` for production and `k apply -k k8s/overlays/staging` for staging.
 4.`k8s/shiny-sync`

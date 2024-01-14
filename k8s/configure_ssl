@@ -11,5 +11,4 @@ vault read -field=value /secret/shiny.dide/dev/ssl/cert > \
 vault read -field=value /secret/shiny.dide/dev/ssl/key > \
       ${DEST}/key.pem
 
-kubectl create ns twinkle 
 kubectl -n twinkle create secret tls tls-secret --cert  ${DEST}/certificate.pem --key ${DEST}/key.pem

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Set the environment variable to the first command-line argument or default to 'staging'
+ENV=${1:-staging}
+
+# Make the script itself executable
+chmod +x "$0"
+
+# Make the k8s directory and its contents executable
+chmod +x k8s/
+
+# Create a Kubernetes namespace named 'twinkle'
+kubectl create ns twinkle
+
+# Run the script to configure SSL (assuming it's in the k8s directory)
+k8s/configure_ssl
+
+# Apply Kubernetes manifests from overlays based on the specified or default environment
+kubectl apply -k "k8s/overlays/$ENV"
+
+# Wait for the 'shiny-deploy' deployment to be in the 'available' condition within the 'twinkle' namespace
+kubectl wait -n twinkle --for=condition=available --timeout=60s deployment/shiny-deploy
+
+# Run the script for 'shiny-sync' (assuming it's in the k8s directory)
+k8s/shiny-sync
