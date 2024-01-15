@@ -1,5 +1,5 @@
 # todo: storage capacity as per requirements
-# todo: For distributed nodes use another storage solution https://ceph.io
+# todo: Switch out for longhorn if local does not work
 # storage class
 # apiVersion: storage.k8s.io/v1
 # kind: StorageClass

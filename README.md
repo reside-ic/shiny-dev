@@ -67,19 +67,16 @@ nee to be adjusted for other k8s clusters.
 
 ### Prerequisites
 
-A single node k8s cluster is needed. To setup a k8s cluster follow the guide [here](https://mrc-ide.myjetbrains.com/youtrack/articles/RESIDE-A-31/Setting-up-Kubernetes-k8s-Cluster).
+A production kubernetes cluster using k3s is needed to be setup first. To setup a k8s cluster follow the guide [here](https://mrc-ide.myjetbrains.com/youtrack/articles/RESIDE-A-31/Setting-up-Kubernetes-k8s-Cluster). Note: If using dev cluster, the storageClassName: local-path is unavailable and you will need to provision own storage class and persistant volume. 
 
-Run the following commands  from the root of the repository
+Run `start-k8s-shiny <env>` to run the shint server in k8s. 
 
-1. `./shiny/build`
-2. For KIND cluster load image: `kind load docker-image mrcide/shiny-server:dev`
-3. Create /shiny/logs and /shiny/apps directories in k8s node or run `./k8s/configure_ssl`. For kind exec into node via `docker exec -it kind-control-plane sh`
- and then `mkdir -p /shiny/logs /shiny/apps` to create the directories.
-3.`k apply -k k8s/overlays/production` for production and `k apply -k k8s/overlays/staging` for staging.
-4.`k8s/shiny-sync`
-
-Great the shiny server is running and can be seen on the External IP of the ingress-nginx-controller LoadBalancer service.
+The server can be seen running on the External IP of the ingress-nginx-controller LoadBalancer service.
+Note: `kubectl get svc -n ingress-nginx ingress-nginx-controller` command to get external IP.
 
 #### Teardown
 
-`k delete -k k8s/overlays/production` for production or `k delete -k k8s/overlays/staging` for staging
+Run the following: 
+
+1. `kubectl delete -k k8s/overlays/<env>`. Replace <env> with staging or production. 
+2. `kubectl  delete ns twinkle` to remove namespace. 

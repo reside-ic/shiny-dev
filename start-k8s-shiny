@@ -19,6 +19,7 @@ k8s/configure_ssl
 kubectl apply -k "k8s/overlays/$ENV"
 
 # Wait for the 'shiny-deploy' deployment to be in the 'available' condition within the 'twinkle' namespace
+echo 'Waiting for pods to be ready...'
 kubectl wait -n twinkle --for=condition=available --timeout=60s deployment/shiny-deploy
 
 # Run the script for 'shiny-sync' (assuming it's in the k8s directory)
