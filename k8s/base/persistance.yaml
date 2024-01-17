@@ -1,5 +1,5 @@
 # todo: storage capacity as per requirements
-# can use local-path if single node
+# can use local-path if single node or dont need distributed & replicated
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -11,35 +11,3 @@ spec:
   resources:
     requests:
       storage: 15Gi
-# Uncoment below if on dev cluster or dont have access to local-storage storageClass from k3s
-# ---
-# apiVersion: storage.k8s.io/v1
-# kind: StorageClass
-# metadata:
-#   name: local-storage
-# provisioner: kubernetes.io/no-provisioner
-# volumeBindingMode: WaitForFirstConsumer
-# ---
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#   name: shiny-apps-pv
-# spec:
-#   storageClassName: local-path
-#   capacity:
-#     storage: 15Gi
-#   volumeMode: Filesystem
-#   accessModes:
-#     - ReadWriteOnce
-#   persistentVolumeReclaimPolicy: Retain
-#   local:
-#     path: /shiny/apps
-#   nodeAffinity:
-#     required:
-#       nodeSelectorTerms:
-#       - matchExpressions:
-#         - key: kubernetes.io/hostname
-#           operator: In
-#           values:
-#           - kind-control-plane # update this to the node name
-# ---
