@@ -28,11 +28,11 @@ spec:
             - name: shiny-data
               mountPath: /shiny
           # todo: create appropriate resource requests and limits
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "250m"
+          # resources:
+          #   requests:
+          #     memory: "128Mi"
+          #     cpu: "250m"
       volumes:
         - name: shiny-data
           persistentVolumeClaim:
-            claimName: local-path-pvc
+            claimName: shiny-pvc

@@ -9,4 +9,4 @@ commonLabels:
 
 replicas:
   - name: shiny-deploy
-    count: 7
+    count: 9
