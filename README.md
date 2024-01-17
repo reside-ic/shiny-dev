@@ -40,7 +40,7 @@ docker run -d --name haproxy --network twinkle mrcide/haproxy:dev
 docker run -d --name apache --network twinkle \
   -p 80:80 \
   -p 443:443 \
-  -p 9005:9005 \
+  -p 9000:9000 \
   -v "${PWD}/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro" \
   -v "${PWD}/apache/auth:/usr/local/apache2/conf/auth:ro" \
   -v "${PWD}/apache/ssl:/usr/local/apache2/conf/ssl:ro" \
@@ -71,7 +71,6 @@ A production kubernetes cluster using k3s is needed to be setup first. To setup 
 
 Run `start-k8s-shiny <env>` to run the shint server in k8s. 
 
-The server can be seen running on https://shiny-dev.dide.ic.ac.uk.
 
 #### Teardown
 
