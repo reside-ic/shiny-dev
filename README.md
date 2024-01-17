@@ -67,12 +67,11 @@ nee to be adjusted for other k8s clusters.
 
 ### Prerequisites
 
-A production kubernetes cluster using k3s is needed to be setup first. To setup a k8s cluster follow the guide [here](https://mrc-ide.myjetbrains.com/youtrack/articles/RESIDE-A-31/Setting-up-Kubernetes-k8s-Cluster). Note: If using dev cluster, the storageClassName: local-path is unavailable and you will need to provision own storage class and persistant volume. 
+A production kubernetes cluster using k3s is needed to be setup first. To setup a k8s cluster follow the guide [here](https://mrc-ide.myjetbrains.com/youtrack/articles/RESIDE-A-31/Setting-up-Kubernetes-k8s-Cluster). Note: If using dev cluster (KIND), the storageClassName: local-path & longhorn is unavailable and you will need to provision own storage class and persistant volume. 
 
 Run `start-k8s-shiny <env>` to run the shint server in k8s. 
 
-The server can be seen running on the External IP of the ingress-nginx-controller LoadBalancer service.
-Note: `kubectl get svc -n ingress-nginx ingress-nginx-controller` command to get external IP.
+The server can be seen running on https://shiny-dev.dide.ic.ac.uk.
 
 #### Teardown
 
