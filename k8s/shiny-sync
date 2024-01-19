@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+set -eu
 # uses krysnc to sync files to a kubernetes pod and thus into k8s cluster (via persistant volume)
 # RUN this from repository root to ensure correct paths to app files
 NAMESPACE=twinkle

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-
+set -eu
 # example use case: ./start-k8s-shiny production
 
-# Set the environment variable to the first command-line argument or default to 'staging'
-ENV=${1:-staging}
-if [[ "$ENV" != "staging" && "$ENV" != "production" ]]; then
-    echo "Error: env must be either 'staging' or 'production'"
+# Set the environment variable to the first command-line argument or default to 'testing'
+ENV=${1:-testing}
+if [[ "$ENV" != "testing" && "$ENV" != "production" ]]; then
+    echo "Error: env must be either 'testing' or 'production'"
     exit 1
 fi
 # Make the script itself executable

@@ -27,7 +27,7 @@ spec:
           volumeMounts:
             - name: shiny-data
               mountPath: /shiny
-          # todo: create appropriate resource requests and limits
+          # todo: create appropriate resource requests 
           # resources:
           #   requests:
           #     memory: "128Mi"

@@ -5,7 +5,7 @@ resources:
   - ../../base
 
 commonLabels:
-  env: staging
+  env: testing
 
 replicas:
   - name: shiny-deploy

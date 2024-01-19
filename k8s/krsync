@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+set -eu
 # https://serverfault.com/questions/741670/rsync-files-to-a-kubernetes-pod
 #  example usage:
 # ./krsync -av --progress --stats <hostdir>  podName@namespace:<poddir>
@@ -22,5 +22,5 @@ if [ "X$pod" = "X-l" ]; then
     shift
 fi
 
-# customise this to cluster needs!!
+
 exec kubectl $namespace exec -i $pod -- "$@"
