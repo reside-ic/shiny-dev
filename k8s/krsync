@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -eu
 # https://serverfault.com/questions/741670/rsync-files-to-a-kubernetes-pod
 #  example usage:
 # ./krsync -av --progress --stats <hostdir>  podName@namespace:<poddir>
