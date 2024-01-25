@@ -23,11 +23,11 @@ spec:
               mountPath: /shiny
       containers:
         - name: shiny
-          image: absternator/shiny-server:dev # todo: change to actual one!!! mrcide-
+          image: mrcide/shiny-server:dev # todo: change to actual one!!! mrcide-
           volumeMounts:
             - name: shiny-data
               mountPath: /shiny
-          # todo: create appropriate resource requests 
+          # todo: create appropriate resource requests
           # resources:
           #   requests:
           #     memory: "128Mi"

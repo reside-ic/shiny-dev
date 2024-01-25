@@ -10,10 +10,9 @@ nee to be adjusted for other k8s clusters.
 
 ### Prerequisites
 
-A production kubernetes cluster using k3s is needed to be setup first. To setup a k8s cluster follow the guide [here](https://mrc-ide.myjetbrains.com/youtrack/articles/RESIDE-A-31/Setting-up-Kubernetes-k8s-Cluster). Note: If using dev cluster (KIND), the storageClassName: local-path & longhorn is unavailable and you will need to provision own storage class and persistant volume. 
+A k8s kubernetes cluster using k3s is needed to be setup first. To setup a k8s cluster follow the guide [here](https://mrc-ide.myjetbrains.com/youtrack/articles/RESIDE-A-31/Setting-up-Kubernetes-k8s-Cluster).
 
 Run `start-k8s-shiny <env>` to run the shint server in k8s.
-
 
 #### Teardown
 

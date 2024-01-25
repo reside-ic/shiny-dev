@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -e
+HERE=$(realpath $(dirname $0))
+
+. $HERE/build
+
+docker push $IMAGE_NAME:$TAG

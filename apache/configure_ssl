@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-export VAULT_ADDR=https://vault.dide.ic.ac.uk:8200
-export VAULT_TOKEN=$(vault login -method=github -token-only)
-DEST=apache/ssl
-mkdir -p ${DEST}
-vault read -field=value /secret/shiny.dide/dev/ssl/cert > \
-      ${DEST}/certificate.pem
-vault read -field=value /secret/shiny.dide/dev/ssl/key > \
-      ${DEST}/key.pem
