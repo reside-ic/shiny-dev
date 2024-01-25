@@ -10,6 +10,9 @@ A k8s kubernetes cluster using k3s is needed to be setup first. To setup a k8s c
 
 Run `./start-k8s-shiny <env>` to run the shiny server in k8s.
 
+Note: If on testing enviroment the app will launch on the IP addr of the result of the following command: 
+`kubectl -n ingress-nginx get svc ingress-nginx-controller -o=jsonpath='{.status.loadBalancer.ingress[0].ip}'`
+
 #### Teardown
 
 Run the following: 
