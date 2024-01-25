@@ -2,15 +2,15 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-shiny
-  annotations:
-    nginx.ingress.kubernetes.io/affinity: "cookie"
-    nginx.ingress.kubernetes.io/session-cookie-name: "shinycookie"
-    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
-    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - shiny-dev.dide.ic.ac.uk
+      secretName: tls-secret
   rules:
-    - http:
+    - host: shiny-dev.dide.ic.ac.uk
+      http:
         paths:
           - path: /
             pathType: Prefix

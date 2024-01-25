@@ -23,7 +23,7 @@ spec:
               mountPath: /shiny
       containers:
         - name: shiny
-          image: mrcide/shiny-server:dev # todo: change to actual one!!! mrcide-
+          image: mrcide/shiny-server:dev
           volumeMounts:
             - name: shiny-data
               mountPath: /shiny

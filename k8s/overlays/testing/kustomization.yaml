@@ -4,8 +4,10 @@ kind: Kustomization
 resources:
   - ../../base
 
-commonLabels:
-  env: testing
+labels:
+  - includeSelectors: true
+    pairs:
+      env: testing
 
 replicas:
   - name: shiny-deploy

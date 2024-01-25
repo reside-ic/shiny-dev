@@ -4,9 +4,14 @@ kind: Kustomization
 resources:
   - ../../base
 
-commonLabels:
-  env: production
-
 replicas:
-  - name: shiny-deploy
-    count: 9
+  - count: 9
+    name: shiny-deploy
+
+labels:
+  - includeSelectors: true
+    pairs:
+      env: production
+patches:
+  - path: persistence-patch.yaml # if 1 node cluster remove this patch which enables longhorn
+  - path: ingress-patch.yaml
