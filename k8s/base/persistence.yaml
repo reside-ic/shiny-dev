@@ -1,0 +1,12 @@
+# todo: storage capacity as per requirements
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shiny-pvc
+spec:
+  storageClassName: local-path # will use `longhorn` for distributed system (prod)
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 15Gi

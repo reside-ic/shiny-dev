@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shiny-deploy
+  labels:
+    app: shiny
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: shiny
+  template:
+    metadata:
+      labels:
+        app: shiny
+    spec:
+      initContainers:
+        - name: init-shiny
+          image: busybox:1.28
+          command: ["sh", "-c", "mkdir -p /shiny/logs /shiny/apps"]
+          volumeMounts:
+            - name: shiny-data
+              mountPath: /shiny
+      containers:
+        - name: shiny
+          image: mrcide/shiny-server:dev
+          volumeMounts:
+            - name: shiny-data
+              mountPath: /shiny
+          # todo: create appropriate resource requests
+          # resources:
+          #   requests:
+          #     memory: "128Mi"
+          #     cpu: "250m"
+      volumes:
+        - name: shiny-data
+          persistentVolumeClaim:
+            claimName: shiny-pvc

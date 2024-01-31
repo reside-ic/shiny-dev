@@ -2,8 +2,5 @@
 set -e
 HERE=$(realpath $(dirname $0))
 IMAGE_NAME="mrcide/shiny-server"
-TAG_VERSION=dev
-docker pull rocker/shiny:latest
-docker build --rm \
-       --tag "${IMAGE_NAME}:${TAG_VERSION}" \
-       $HERE
+TAG=dev
+docker build -t "${IMAGE_NAME}:${TAG}" $HERE
