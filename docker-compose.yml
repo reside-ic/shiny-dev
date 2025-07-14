@@ -1,0 +1,17 @@
+services:
+  shiny:
+    image: rocker/shiny:latest
+    # volumes:
+    #   - ./shiny/shiny-server.conf:/etc/shiny-server/shiny-server.conf
+
+  haproxy:
+    image: haproxy:latest
+    ports:
+      - 8888:8888
+      - 8080:8080
+    depends_on:
+      shiny:
+        condition: service_started
+        restart: true
+    volumes:
+      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
