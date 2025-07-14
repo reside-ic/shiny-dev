@@ -1,6 +1,11 @@
+name: twinkle
+
 services:
   shiny:
     image: rocker/shiny:latest
+    deploy:
+      mode: replicated
+      replicas: 2
     # volumes:
     #   - ./shiny/shiny-server.conf:/etc/shiny-server/shiny-server.conf
 
