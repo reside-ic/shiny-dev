@@ -2,12 +2,17 @@ name: twinkle
 
 services:
   shiny:
-    image: rocker/shiny:latest
+    image: ghcr.io/mrc-ide/twinkle2:cli
+    environment:
+      TWINKLE_ROOT: "/shiny"
+      TWINKLE_CONFIG: "/site.yml"
     deploy:
       mode: replicated
-      replicas: 2
-    # volumes:
-    #   - ./shiny/shiny-server.conf:/etc/shiny-server/shiny-server.conf
+      replicas: 1
+    volumes:
+      - shiny-data:/shiny
+      - ./site.yml:/site.yml:ro
+      - ./shiny/shiny-server.conf:/etc/shiny-server/shiny-server.conf:ro
 
   haproxy:
     image: haproxy:latest
@@ -20,3 +25,12 @@ services:
         restart: true
     volumes:
       - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+
+volumes:
+  shiny-data:
+    # This container is marked as 'external' so that we can poke at it
+    # directly, but that might not really be needed.  Otherwise it
+    # will be managed by docker compose (being created where needed
+    # etc), which might be fine too.
+    external: true
+    name: shiny-data
