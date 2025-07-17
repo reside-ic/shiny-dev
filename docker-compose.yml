@@ -3,6 +3,7 @@ name: twinkle
 services:
   shiny:
     image: ghcr.io/mrc-ide/twinkle2:cli
+    restart: unless-stopped
     environment:
       TWINKLE_ROOT: "/shiny"
       TWINKLE_CONFIG: "/site.yml"
@@ -16,6 +17,7 @@ services:
 
   haproxy:
     image: haproxy:latest
+    restart: unless-stopped
     depends_on:
       shiny:
         condition: service_started
@@ -25,6 +27,7 @@ services:
 
   apache:
     image: httpd:latest
+    restart: unless-stopped
     ports:
       - 80:80
       - 443:443
@@ -34,6 +37,28 @@ services:
         restart: true
     volumes:
       - ./httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+      - shiny-tls:/run/proxy:ro
+
+  acme-buddy:
+    image: ghcr.io/reside-ic/acme-buddy:main
+    ports:
+      - 2112:2112
+    restart: unless-stopped
+    volumes:
+      - shiny-tls:/tls
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - ACME_BUDDY_STAGING
+    env_file:
+      - hdb-credentials
+    command: >
+      --domain ${SERVER}.dide.ic.ac.uk
+      --email reside@imperial.ac.uk
+      --dns-provider hdb
+      --certificate-path /tls/certificate.pem
+      --key-path /tls/key.pem
+      --account-path /tls/account.json
+      --reload-container twinkle-apache-1
 
 volumes:
   shiny-data:
@@ -43,3 +68,4 @@ volumes:
     # etc), which might be fine too.
     external: true
     name: shiny-data
+  shiny-tls:
