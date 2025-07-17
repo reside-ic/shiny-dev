@@ -12,7 +12,7 @@ services:
     volumes:
       - shiny-data:/shiny
       - ./site.yml:/site.yml:ro
-      - ./shiny/shiny-server.conf:/etc/shiny-server/shiny-server.conf:ro
+      - ./shiny-server.conf:/etc/shiny-server/shiny-server.conf:ro
 
   haproxy:
     image: haproxy:latest
