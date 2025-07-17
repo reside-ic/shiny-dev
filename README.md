@@ -2,6 +2,26 @@
 
 This is a temporary repo designed to give an easy-to-understand deployment of the apache / haproxy / shiny stack; it does not include configurable applications or anything like that.
 
+## Usage
+
+Start the system
+
+```
+docker compose up
+```
+
+Bring everything down
+
+```
+docker compose down
+```
+
+Interact with the `twinkle` cli
+
+```
+./twinkle <args...>
+```
+
 ## The components
 
 ### apache
@@ -14,23 +34,4 @@ An unmodified version of the latest `haproxy`, with a configuration [`haproxy/ha
 
 ### shiny
 
-An unmodified version of the official shiny container
-
-### apps
-
-Not yet configured, soon to come from a volume.
-
-Some applications (copied over from the original deployment are in `apps`). These will want to be in a volume; run `./apps/create_volume` to copy them into the volume
-
-
-## Bringing the bits up
-
-```
-docker compose up
-```
-
-Teardown
-
-```
-docker compose down
-```
+An unmodified version the twinkle shiny container, with the configuration and site configuration mounted in.  Apps and their libraries are stored in a persistant docker volume which is also mounted in.
