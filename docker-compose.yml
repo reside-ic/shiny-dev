@@ -50,7 +50,7 @@ services:
     environment:
       - ACME_BUDDY_STAGING
     env_file:
-      - hdb-credentials
+      - .hdb-credentials
     command: >
       --domain ${SERVER}.dide.ic.ac.uk
       --email reside@imperial.ac.uk
