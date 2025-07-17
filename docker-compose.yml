@@ -24,7 +24,7 @@ services:
         condition: service_started
         restart: true
     volumes:
-      - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
 
 volumes:
   shiny-data:

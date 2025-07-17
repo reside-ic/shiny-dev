@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-set -e
-HERE=$(realpath $(dirname $0))
-IMAGE_NAME="mrcide/haproxy"
-TAG_VERSION=dev
-docker build --rm \
-       --tag "${IMAGE_NAME}:${TAG_VERSION}" \
-       $HERE
