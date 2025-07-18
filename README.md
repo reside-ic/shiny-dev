@@ -48,7 +48,7 @@ The first few rounds are error prone as this is where we find out exactly what t
 
 ### Private applications
 
-For private applications (that is, applications where the **source** is in a private repository) we need a deploy key added to the repository.  This is easiest where the shiny server administrator has administrative privileges to the reposiotory in question as they can add the public key themselves.
+For private applications (that is, applications where the **source** is in a private repository) we need a deploy key added to the repository.  This is easiest where the shiny server administrator has administrative privileges to the repository in question as they can add the public key themselves.
 
 Before deployment, the administrator runs (from the shiny server)
 
@@ -64,7 +64,7 @@ These are all reasons we have seen applications fail to start.
 
 The most common reason for failure of an application to start is **missing packages**.  The user should add these to the provisioning information contained in their repository and let the administrator know so that they can try redeploying.  This may take a few iterations and there are not many great ways of easily working out the full set of packages required by the application.
 
-Relatedly, an installed package may **fail to load**.  In this case, the image being used by the shiny server needs updating.  Currently this is built in `twinkle2` but one could modify the setup here easily enough to build an image *from* that image and install additional system libraries.  The output from `pkgdepends` will flag (with a cross) system libraries that are missing, otherwise searching on the error message along with "ubuntu" should reveal the name of the package.  These are typicaly installed with `apt-get update && apt-get install ...`, and you can try this in the container if you want to iterate quickly (though with multiple workers this avenue will not generally be suitable for changing a live system).
+Relatedly, an installed package may **fail to load**.  In this case, the image being used by the shiny server needs updating.  Currently this is built in `twinkle2` but one could modify the setup here easily enough to build an image *from* that image and install additional system libraries.  The output from `pkgdepends` will flag (with a cross) system libraries that are missing, otherwise searching on the error message along with "ubuntu" should reveal the name of the package.  These are typically installed with `apt-get update && apt-get install ...`, and you can try this in the container if you want to iterate quickly (though with multiple workers this avenue will not generally be suitable for changing a live system).
 
 Also relatedly, an application may try and use **a missing shell command**, e.g., LaTeX or similar.  This can be fixed following the approach above.
 
