@@ -60,6 +60,8 @@ which creates a private ssh key and stores it on the server, then prints the pub
 
 ### Troubleshooting
 
+#### Application fails
+
 These are all reasons we have seen applications fail to start.
 
 The most common reason for failure of an application to start is **missing packages**.  The user should add these to the provisioning information contained in their repository and let the administrator know so that they can try redeploying.  This may take a few iterations and there are not many great ways of easily working out the full set of packages required by the application.
@@ -69,3 +71,9 @@ Relatedly, an installed package may **fail to load**.  In this case, the image b
 Also relatedly, an application may try and use **a missing shell command**, e.g., LaTeX or similar.  This can be fixed following the approach above.
 
 Applications will fail if they **try and write any data to disk**; they run in a read-only filesystem.  This seems annoying but is the safest way to manage multiple simultaneous users, accessed from multiple running server processes.  If the application needs scratch space (e.g. a place to compile a LaTeX document) it should do so in a temporary directory.  If the application wants some common shared persistent data (e.g., a database) this is actually quite hard to get right and not currently supported.  Possible future solutions to this would want to enable the applications to connect to some database or have access to some persistent disk that is shared between all workers but design the application to allow multiple simultaneous writers.  This sort of problem will require collaboration between the server setup and the application.
+
+#### Installation fails
+
+Installation may fail if you rely on packages that use Remotes-style github references, because we only use the the bundled PAT.  It's best to get as many packages onto a universe and use the `pkgdepends.txt` to set repo to prevent this.  It would be possible to pass a github PAT through as an environment variable when running the installation, but that is not currently implemented.
+
+pkgdepends may fail with conflicting packages.  This can be quite hard to debug, and usually happens when you have multiple related packages that are found via `Remotes:` in their `DESCRIPTION`s.  It's quite hard to get pkgdepends to relax about this but it will interpret one request for `user/pkg` and another as `user/pkg@branch` as conflicting because the former is interpreted as **requiring** `main` and latter as requiring a particular branch.  It may be possible to find the right query parameters to tame the dependency solver (see [the docs](https://r-lib.github.io/pkgdepends/reference/pkg_refs.html)).  Alternative solutions are to install from an R universe and avoid these references or to use the script-based installation (via `conan.R`) and control the process yourself.
