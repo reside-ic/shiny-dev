@@ -58,9 +58,9 @@ Before deployment, the administrator runs (from the shiny server)
 
 which creates a private ssh key and stores it on the server, then prints the public key and instructions to add it to the repository.  Follow these instructions.  After this step, which only needs to be performed once, everything should work as described above.
 
-### Troubleshooting
+## Troubleshooting
 
-#### Application fails
+### Application fails
 
 These are all reasons we have seen applications fail to start.
 
@@ -72,7 +72,7 @@ Also relatedly, an application may try and use **a missing shell command**, e.g.
 
 Applications will fail if they **try and write any data to disk**; they run in a read-only filesystem.  This seems annoying but is the safest way to manage multiple simultaneous users, accessed from multiple running server processes.  If the application needs scratch space (e.g. a place to compile a LaTeX document) it should do so in a temporary directory.  If the application wants some common shared persistent data (e.g., a database) this is actually quite hard to get right and not currently supported.  Possible future solutions to this would want to enable the applications to connect to some database or have access to some persistent disk that is shared between all workers but design the application to allow multiple simultaneous writers.  This sort of problem will require collaboration between the server setup and the application.
 
-#### Installation fails
+### Installation fails
 
 Installation may fail if you rely on packages that use Remotes-style github references, because we only use the the bundled PAT.  It's best to get as many packages onto a universe and use the `pkgdepends.txt` to set repo to prevent this.  It would be possible to pass a github PAT through as an environment variable when running the installation, but that is not currently implemented.
 
