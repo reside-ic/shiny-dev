@@ -34,11 +34,6 @@ apps:
     repo: csavr-mortality
     branch: master
 
-  naomi-viewer:
-    username: mrc-ide
-    repo: shinyrob
-    branch: master
-
   kp-data:
     username: mrc-ide
     repo: kp-data-shiny
@@ -101,9 +96,9 @@ apps:
     subdir: inst/app/triagg
 
   epiestim:
-    username: jstockwin
+    username: mrc-ide
     repo: EpiEstimApp
-    branch: release
+    branch: update-sources
     subdir: inst/app
 
   tfpbrowser:
