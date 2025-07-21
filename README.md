@@ -77,3 +77,9 @@ Applications will fail if they **try and write any data to disk**; they run in a
 Installation may fail if you rely on packages that use Remotes-style github references, because we only use the the bundled PAT.  It's best to get as many packages onto a universe and use the `pkgdepends.txt` to set repo to prevent this.  It would be possible to pass a github PAT through as an environment variable when running the installation, but that is not currently implemented.
 
 pkgdepends may fail with conflicting packages.  This can be quite hard to debug, and usually happens when you have multiple related packages that are found via `Remotes:` in their `DESCRIPTION`s.  It's quite hard to get pkgdepends to relax about this but it will interpret one request for `user/pkg` and another as `user/pkg@branch` as conflicting because the former is interpreted as **requiring** `main` and latter as requiring a particular branch.  It may be possible to find the right query parameters to tame the dependency solver (see [the docs](https://r-lib.github.io/pkgdepends/reference/pkg_refs.html)).  Alternative solutions are to install from an R universe and avoid these references or to use the script-based installation (via `conan.R`) and control the process yourself.
+
+## Gotchas
+
+If your app installs itself as a package, then the `Remotes` field in the `DESCRIPTION` can conflict with other references used in provisioning.
+
+If you move an application's source (e.g., tracking a fork) then you must delete the app before provisioning
