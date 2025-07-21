@@ -61,18 +61,6 @@ services:
       --account-path /tls/account.json
       --reload-container twinkle-apache-1
 
-  logrotate:
-    image: blacklabelops/logrotate
-    restart: unless-stopped
-    volumes:
-      - shiny-data:/shiny
-    environment:
-      LOGS_DIRECTORIES: /shiny/logs
-      LOGROTATE_INTERVAL: daily
-      LOGROTATE_MAXAGE: 3
-      LOGROTATE_COPIES: -1
-      LOGROTATE_PARAMETERS: v
-
 volumes:
   shiny-data:
     # This container is marked as 'external' so that we can poke at it
