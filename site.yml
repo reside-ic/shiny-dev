@@ -42,7 +42,7 @@ apps:
   kp-data:
     username: mrc-ide
     repo: kp-data-shiny
-    branch: main
+    branch: shiny-server-v2
 
   shiny90:
     username: mrc-ide
