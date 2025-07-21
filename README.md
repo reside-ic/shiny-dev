@@ -53,7 +53,7 @@ For private applications (that is, applications where the **source** is in a pri
 Before deployment, the administrator runs (from the shiny server)
 
 ```
-./twinkle add-deploy-key <app>
+./twinkle deploy-key <app>
 ```
 
 which creates a private ssh key and stores it on the server, then prints the public key and instructions to add it to the repository.  Follow these instructions.  After this step, which only needs to be performed once, everything should work as described above.
@@ -80,6 +80,6 @@ pkgdepends may fail with conflicting packages.  This can be quite hard to debug,
 
 ## Gotchas
 
-If your app installs itself as a package, then the `Remotes` field in the `DESCRIPTION` can conflict with other references used in provisioning.
+If your app installs itself as a package, then the `Remotes` field in the `DESCRIPTION` can conflict with other references used in provisioning.  `pkgdepends` really does not like multiple references to the same package (e.g., a package `foo` and also a github request for `user/foo`), and you may need to strip down the provisioning request.  Most of the time for an application that is based on a package, the package dependencies will get you most of the way there for depenencies.
 
-If you move an application's source (e.g., tracking a fork) then you must delete the app before provisioning
+If you move an application's source (e.g., tracking a fork) then you must delete the app before provisioning.  We only configure the remote once, at the *first* time we run `update-src` and then after that we just pull from that location.
