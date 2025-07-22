@@ -5,9 +5,9 @@ apps:
     branch: main
 
   polici:
-    username: arranhamlet
+    username: mrc-ide
     repo: POLICI
-    branch: master
+    branch: update-2025
 
   chainchecker:
     username: imperialebola2018
