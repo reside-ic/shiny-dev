@@ -2,7 +2,7 @@ name: twinkle
 
 services:
   shiny:
-    image: ghcr.io/mrc-ide/twinkle2:add-history
+    image: ghcr.io/mrc-ide/twinkle:add-history
     restart: unless-stopped
     environment:
       TWINKLE_ROOT: "/shiny"

@@ -1,6 +1,6 @@
 # shiny-dev
 
-This is the space where we are rewriting the shiny server based on docker compose.  This repository is co-developed with the [`twinkle2`](https://github.com/mrc-ide/twinkle2/) package and the docker image that repository builds.
+This is the space where we are rewriting the shiny server based on docker compose.  This repository is co-developed with the [`twinkle`](https://github.com/mrc-ide/twinkle/) package and the docker image that repository builds.
 
 ## Usage
 
@@ -24,7 +24,7 @@ Interact with the `twinkle` cli
 
 ## The configuration
 
-* `site.yml`: the main configuration describing all applications. This is described in [`twinkle2`](https://github.com/mrc-ide/twinkle2/)
+* `site.yml`: the main configuration describing all applications. This is described in [`twinkle`](https://github.com/mrc-ide/twinkle/)
 * `shiny-server.conf`: the configuration for the shiny server itself. Very little here should need changing, though the log preservation is a matter to consider carefully and the `site_dir` needs to align with the values used in `docker-compose.yml` for the shiny data volume and the `TWINKLE_ROOT` environment variable.
 * `haproxy.cfg`: configuration for the load-balancer.  This needs updating to match the number of server processes that you will run, and that needs to align with the number of replicas in `docker-compose.yml`.  It's possible to use dns-based service discovery with docker compose and haproxy but we have not set that up yet.
 * `httpd.conf`: configuration for apache. This will need configuration based on the site; the `ServerAdmin` and `ServerName` section certainly.  The actual proxy part is simple and depends only on the service name (`haproxy`) in `docker-compose.yml`.
@@ -40,7 +40,7 @@ There are two personas here, possibly corresponding to two people.
 
 The first few rounds are error prone as this is where we find out exactly what the application needs in order to run.  Be prepared for a few back-and-forths over teams or a laptop.
 
-1. The user makes a PR into this repository to create a new application section within [`site.yml`](site.yml).  The format here should be fairly self explanatory and is explained in detail at [`twinkle2`](https://github.com/mrc-ide/twinkle2/)
+1. The user makes a PR into this repository to create a new application section within [`site.yml`](site.yml).  The format here should be fairly self explanatory and is explained in detail at [`twinkle`](https://github.com/mrc-ide/twinkle/)
 1. The user adds provisioning information to their repository, describing packages that their application required (details forthcoming)
 1. The administrator merges the PR and pulls the updated copy of this repository on the server
 1. The administrator runs `./twinkle deploy <app>` to deploy the application (see below for complications for private repos)
@@ -66,11 +66,11 @@ These are all reasons we have seen applications fail to start.
 
 The most common reason for failure of an application to start is **missing packages**.  The user should add these to the provisioning information contained in their repository and let the administrator know so that they can try redeploying.  This may take a few iterations and there are not many great ways of easily working out the full set of packages required by the application.
 
-Relatedly, an installed package may **fail to load**.  In this case, the image being used by the shiny server needs updating.  Currently this is built in `twinkle2` but one could modify the setup here easily enough to build an image *from* that image and install additional system libraries.  The output from `pkgdepends` will flag (with a cross) system libraries that are missing, otherwise searching on the error message along with "ubuntu" should reveal the name of the package.  These are typically installed with `apt-get update && apt-get install ...`, and you can try this in the container if you want to iterate quickly (though with multiple workers this avenue will not generally be suitable for changing a live system).
+Relatedly, an installed package may **fail to load**.  In this case, the image being used by the shiny server needs updating.  Currently this is built in `twinkle` but one could modify the setup here easily enough to build an image *from* that image and install additional system libraries.  The output from `pkgdepends` will flag (with a cross) system libraries that are missing, otherwise searching on the error message along with "ubuntu" should reveal the name of the package.  These are typically installed with `apt-get update && apt-get install ...`, and you can try this in the container if you want to iterate quickly (though with multiple workers this avenue will not generally be suitable for changing a live system).
 
 Also relatedly, an application may try and use **a missing shell command**, e.g., LaTeX or similar.  This can be fixed following the approach above.
 
-Applications will fail if they **try and write any data to disk**; they run in a read-only filesystem.  This seems annoying but is the safest way to manage multiple simultaneous users, accessed from multiple running server processes.  If the application needs scratch space (e.g. a place to compile a LaTeX document) it should do so in a temporary directory.  If the application wants some common shared persistent data (e.g., a database) this is actually quite hard to get right and not currently supported.  Possible future solutions to this would want to enable the applications to connect to some database or have access to some persistent disk that is shared between all workers but design the application to allow multiple simultaneous writers.  This sort of problem will require collaboration between the server setup and the application.
+Applications may fail if they **try and write any data to disk**; ideally they would run in a read-only filesystem, but this is not implemented yet.  This seems annoying but is the safest way to manage multiple simultaneous users, accessed from multiple running server processes.  If the application needs scratch space (e.g. a place to compile a LaTeX document) it should do so in a temporary directory.  If the application wants some common shared persistent data (e.g., a database) this is actually quite hard to get right and not currently supported.  Possible future solutions to this would want to enable the applications to connect to some database or have access to some persistent disk that is shared between all workers but design the application to allow multiple simultaneous writers.  This sort of problem will require collaboration between the server setup and the application.
 
 ### Installation fails
 
