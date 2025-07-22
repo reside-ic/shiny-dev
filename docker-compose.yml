@@ -72,3 +72,4 @@ volumes:
     external: true
     name: shiny-data
   shiny-tls:
+  shiny-logs:
