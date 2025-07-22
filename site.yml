@@ -7,7 +7,7 @@ apps:
   polici:
     username: mrc-ide
     repo: POLICI
-    branch: update-2025
+    branch: no_rgdal
 
   chainchecker:
     username: imperialebola2018
