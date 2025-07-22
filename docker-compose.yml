@@ -6,13 +6,15 @@ services:
     restart: unless-stopped
     environment:
       TWINKLE_ROOT: "/shiny"
+      TWINKLE_LOGS: "/shiny-logs"
       TWINKLE_CONFIG: "/site.yml"
       MC_CORES: "2"
     deploy:
       mode: replicated
       replicas: 1
     volumes:
-      - shiny-data:/shiny
+      - shiny-data:/shiny:ro
+      - shiny-logs:/shiny-logs
       - ./site.yml:/site.yml:ro
       - ./shiny-server.conf:/etc/shiny-server/shiny-server.conf:ro
 
