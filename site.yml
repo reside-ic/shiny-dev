@@ -62,7 +62,7 @@ apps:
   pfhrp23-explainer:
     username: rjzupkoii
     repo: WHO-Malaria-pfhrp23
-    branch: mrc-ide-shiny-deploy
+    branch: main
     subdir: R
 
   raptor:
