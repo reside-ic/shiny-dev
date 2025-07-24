@@ -2,4 +2,5 @@
 docker compose run --rm \
        -v shiny-data:/shiny-data \
        -e TWINKLE_ROOT=/shiny-data \
-       shiny bash
+       -w /shiny-data \
+       shiny bash $@
