@@ -11,7 +11,7 @@ services:
       MC_CORES: "2"
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 12
     volumes:
       - shiny-data:/shiny:ro
       - shiny-logs:/shiny-logs
