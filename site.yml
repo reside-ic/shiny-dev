@@ -4,14 +4,12 @@ apps:
     repo: starmeds
 
   polici:
-    username: mrc-ide
+    username: arranhamlet/POLICI
     repo: POLICI
-    branch: no_rgdal
 
   chainchecker:
     username: imperialebola2018
     repo: chainchecker
-    branch: master
 
   learnr-test:
     username: mrc-ide
@@ -20,17 +18,14 @@ apps:
   kpcascade:
     username: osymandius
     repo: kpcascade
-    branch: master
 
   covid19-si-shiny:
     username: mrc-ide
     repo: covid19-si-shiny
-    branch: main
 
   csavr_mortality:
     username: mrc-ide
     repo: csavr-mortality
-    branch: master
 
   kp-data:
     username: mrc-ide
@@ -40,51 +35,42 @@ apps:
   shiny90:
     username: mrc-ide
     repo: shiny90
-    branch: master
 
   s614LineagesUK:
     username: robj411
     repo: lineageApp
-    branch: master
 
   covid19-forecasts-shiny:
     username: mrc-ide
     repo: covid19-forecasts-orderly-shiny
-    branch: main
 
   DRpower-app:
     username: shaziaruybal
     repo: DRpower_app
-    branch: main
 
   pfhrp23-explainer:
     username: rjzupkoii
     repo: WHO-Malaria-pfhrp23
-    branch: main
     subdir: R
 
   raptor:
     username: mrc-ide
     repo: RAPTOR
-    branch: master
     private: true
 
   raptorx:
     username: mrc-ide
     repo: RAPTORX
-    branch: master
     private: true
 
   seasonal_hrp2:
     username: ojwatson
     repo: hrp2malaRia
     subdir: inst/shiny-seasonality/app
-    branch: master
 
   triagg:
     username: osymandius
     repo: triagg
-    branch: main
     subdir: inst/app/triagg
 
   epiestim:
@@ -96,19 +82,16 @@ apps:
   tfpbrowser:
     username: mrc-ide
     repo: tfpbrowser
-    branch: main
     subdir: inst/app
 
   eppasmviewer:
     username: mrc-ide
     repo: eppasmviewer
-    branch: master
     subdir: inst/shiny/eppasmviewer
     private: true
 
   mms-sd-workshop:
     username: mrc-ide
     repo: MMS-SD_workshop
-    branch: main
     subdir: tutorials
     script: prerender
