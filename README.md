@@ -2,6 +2,14 @@
 
 This is the configuration for [`shiny.dide.ic.ac.uk`](https://shiny.dide.ic.ac.uk), the departmental [Shiny](https://shiny.posit.co/) server.  It uses [`twinkle`](https://github.com/mrc-ide/twinkle/) to look after setting apps and to set up the docker image that we run the server from.
 
+This system is a set of docker containers acting as a *load balanced shiny server*, using three three services:
+
+```
+<apache> -- <haproxy> -- <shiny x 12>
+```
+
+where `apache` presents the interface to the world and looks after https, `haproxy` acts as a load balancer and we have 12 copies of `shiny`, each capable of serving every application.
+
 ## Usage
 
 Start the system
@@ -196,3 +204,11 @@ pkgdepends may fail with conflicting packages.  This can be quite hard to debug,
 If your app installs itself as a package, then the `Remotes` field in the `DESCRIPTION` can conflict with other references used in provisioning.  `pkgdepends` really does not like multiple references to the same package (e.g., a package `foo` and also a github request for `user/foo`), and you may need to strip down the provisioning request.  Most of the time for an application that is based on a package, the package dependencies will get you most of the way there for dependencies.
 
 If you move an application's source (e.g., tracking a fork) then you must delete the app before provisioning.  We only configure the remote once, at the *first* time we run `update-src` and then after that we just pull from that location.
+
+## Adapting to other projects
+
+* Replace the `shiny.dide.ic.ac.uk` domain with yours (`httpd.conf`, `docker-compose.yml`)
+* Replace `reside@imperial.ac.uk` with your email (`httpd.conf`)
+* Make the https certificate system with something applicable to your use case (the current setup will work for people at Imperial College who have worked with ICT to get access to the DNS server records for subdomains they control)
+* Update the number of containers in `docker-compose.yml` and reflect this in `haproxy.conf`
+* Replace the contents of `site.yml` with your own apps!
