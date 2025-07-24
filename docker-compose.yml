@@ -43,7 +43,7 @@ services:
       - shiny-tls:/run/proxy:ro
 
   acme-buddy:
-    image: ghcr.io/reside-ic/acme-buddy:main
+    image: ghcr.io/reside-ic/acme-buddy:latest
     ports:
       - 2112:2112
     restart: unless-stopped
