@@ -112,6 +112,8 @@ The first few rounds are error prone as this is where we find out exactly what t
 1. The administrator should then go to the app page (`https://shiny-dev.dide.ic.ac.uk/staging/<app>`) and see if it starts up.  If it does not, then check the logs (`./twinkle logs <app>`) and report the error to the user so that they can try and replicate/fix (see below for troubleshooting advice)
 1. Once everything is OK, run `./twinkle sync --production <app>` to push the application through to production
 
+The user should add themselves to the "Shiny server" channel on teams so they can be notified about updates.
+
 ### Private applications
 
 For private applications (that is, applications where the **source** is in a private repository) we need a deploy key added to the repository.  This is easiest where the shiny server administrator has administrative privileges to the repository in question as they can add the public key themselves.
