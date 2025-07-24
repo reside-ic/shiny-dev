@@ -4,7 +4,7 @@ apps:
     repo: starmeds
 
   polici:
-    username: arranhamlet/POLICI
+    username: arranhamlet
     repo: POLICI
 
   chainchecker:
