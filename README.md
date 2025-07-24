@@ -12,6 +12,37 @@ where `apache` presents the interface to the world and looks after https, `hapro
 
 ## Usage
 
+### Initial setup
+
+On the first deployment you will need to fetch credentials for the DNS server, do this with
+
+```
+./scripts/get-hdb-credentials
+```
+
+and create the data volume with
+
+```
+docker volume create shiny-data
+```
+
+You can create the certificate by running
+
+```
+docker compose run acme-buddy \
+      --domain shiny.dide.ic.ac.uk \
+      --email reside@imperial.ac.uk \
+      --dns-provider hdb \
+      --certificate-path /tls/certificate.pem \
+      --key-path /tls/key.pem \
+      --account-path /tls/account.json \
+      --oneshot
+```
+
+which is all the commands for `acme-buddy` in `docker-compose.yml` *except* `--reload-container` and adding `--oneshot`; this will create the certificates which results in a smoother startup of the proxy.  This step is optional and only needs to be done the very first time.
+
+### General deployment
+
 Start the system
 
 ```
