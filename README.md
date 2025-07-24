@@ -109,8 +109,8 @@ The first few rounds are error prone as this is where we find out exactly what t
 1. The user adds provisioning information to their repository, describing packages that their application required (details forthcoming)
 1. The administrator merges the PR and pulls the updated copy of this repository on the server
 1. The administrator runs `./twinkle deploy <app>` to deploy the application through to staging (see below for complications for private repos)
-1. The administrator should then go to the app page (`https://shiny-dev.dide.ic.ac.uk/staging/<app>`) and see if it starts up.  If it does not, then check the logs (`./twinkle logs <app>`) and report the error to the user so that they can try and replicate/fix (see below for troubleshooting advice)
-1. Once everything is OK, run `./twinkle sync --production <app>` to push the application through to production
+1. The administrator should then go to the app page (`https://shiny.dide.ic.ac.uk/staging/<app>`) and see if it starts up.  If it does not, then check the logs (`./twinkle logs <app>`) and report the error to the user so that they can try and replicate/fix (see below for troubleshooting advice)
+1. Once everything is OK, run `./twinkle sync --production <app>` to push the application through to production, where it will be available as `https://shiny.dide.ic.ac.uk/<app>`
 
 The user should add themselves to the "Shiny server" channel on teams so they can be notified about updates.
 
