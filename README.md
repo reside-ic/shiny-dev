@@ -199,13 +199,11 @@ for example
 $ ./twinkle history mms-sd-workshop
 
 ── mms-sd-workshop ─────────────────────────────────────────────────────────────
-2025-07-22 15:33:54.171179 sync-production sha=a247013e, lib=20250718162420,
-and production=TRUE
+2025-07-22 15:33:54.171179 sync-production sha=a247013e, lib=20250718162420, and production=TRUE
 2025-07-24 08:19:20.382735 update-src sha=c21b56e3
 2025-07-24 08:19:35.776024 install-packages sha=c21b56e3 and lib=20250724081921
 2025-07-24 08:25:06.09081 update-src sha=7a2ac5e5
-2025-07-24 08:34:30.364466 sync-staging sha=7a2ac5e5, lib=20250724081921, and
-production=FALSE
+2025-07-24 08:34:30.364466 sync-staging sha=7a2ac5e5, lib=20250724081921, and production=FALSE
 ```
 
 Only successful commands are logged.  Times are UTC throughout.
