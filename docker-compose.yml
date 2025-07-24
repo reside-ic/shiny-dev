@@ -2,7 +2,7 @@ name: twinkle
 
 services:
   shiny:
-    image: ghcr.io/mrc-ide/twinkle:latest
+    image: ghcr.io/mrc-ide/twinkle:script-after-sync
     restart: unless-stopped
     environment:
       TWINKLE_ROOT: "/shiny"
