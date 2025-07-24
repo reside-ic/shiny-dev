@@ -86,7 +86,7 @@ to get a bash shell within the docker system, configured as it would be when run
 
 ## The configuration
 
-The configuration is spread over a few files, but only the first needs changing generally (some of the others would be changed to if adapting to a different system)
+The configuration is spread over a few files, but only the first needs changing generally (some of the others would be changed if adapting to a different system)
 
 * `site.yml`: the main configuration describing all applications. This is described in [`twinkle`](https://github.com/mrc-ide/twinkle/)
 * `docker-compose.yml`: the configuration of the whole system
@@ -129,7 +129,7 @@ which creates a private ssh key and stores it on the server, then prints the pub
 Generally this is much easier than the first installation, because the app has probably already worked once already.
 
 1. The user lets the administrator know that the application needs updating.  This is easiest if they provide the URL to the application, because the last part of that is the application name that the administrator needs.
-1. The administrator runs `./twinkle deploy <app>` to deploy the application through to staging (see below for complications for private repos) and lets the user know to check (`https://shiny-dev.dide.ic.ac.uk/staging/<app>`) to see if things are looking OK (otherwise repeat these steps)
+1. The administrator runs `./twinkle deploy <app>` to deploy the application through to staging (see below for complications for private repos) and lets the user know to check (`https://shiny.dide.ic.ac.uk/staging/<app>`) to see if things are looking OK (otherwise repeat these steps)
 1. Once everything is OK, run `./twinkle sync --production <app>` to push the application through to production
 
 Sometimes only the source wants updating (not the packages) and this can be done by using the lower-level twinkle commands
