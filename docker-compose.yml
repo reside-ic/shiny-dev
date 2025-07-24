@@ -2,7 +2,7 @@ name: twinkle
 
 services:
   shiny:
-    image: ghcr.io/mrc-ide/twinkle:script-after-sync
+    image: ghcr.io/mrc-ide/twinkle:latest
     restart: unless-stopped
     environment:
       TWINKLE_ROOT: "/shiny"
@@ -43,7 +43,7 @@ services:
       - shiny-tls:/run/proxy:ro
 
   acme-buddy:
-    image: ghcr.io/reside-ic/acme-buddy:main
+    image: ghcr.io/reside-ic/acme-buddy:latest
     ports:
       - 2112:2112
     restart: unless-stopped

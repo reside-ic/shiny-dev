@@ -117,6 +117,6 @@ apps:
   mms-sd-workshop:
     username: mrc-ide
     repo: MMS-SD_workshop
-    branch: update-twinkle2
+    branch: main
     subdir: tutorials
     script: prerender
